@@ -1,0 +1,13 @@
+.container {
+  width: 900px;
+  border: solid 1px #eeeeee;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 500px;
+}
+
+.square {
+  width: 10px;
+  height: 10px;
+  background-color: #16a085;
+}
