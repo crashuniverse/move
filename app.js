@@ -23,9 +23,9 @@ const moveRight = (square, index) => {
   if (times[index] === TIMES_MOVE) {
     window.clearInterval(intervals[index]);
   }
-  const margin = square.style.marginLeft.split('px')[0];
-  const newMargin = Number(margin) + MOVE_BY_PX;
-  square.style.marginLeft = newMargin + 'px';
+  const translate = square.style.transform.match(/translateX\((.*)px\)/);
+  const newTranslate = Number(translate && translate[1]) + MOVE_BY_PX;
+  square.style.transform = `translateX(${newTranslate}px)`;
 };
 
 console.time('prepareForRender');
