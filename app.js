@@ -1,5 +1,5 @@
-const NUMBER_OF_SQUARES = 100;
-const TIMES_MOVE = 800;
+const NUMBER_OF_SQUARES = 50;
+const TIMES_MOVE = 890;
 const MOVE_BY_PX = 1;
 
 const drawSquares = (n, color) => {
@@ -18,13 +18,15 @@ const drawShadows = (n) => {
   e.className = `shadows`;
   container.appendChild(e);
   const shadows = document.querySelector('.shadows');
+  shadows.style.boxShadow = 'rgba(192, 57, 43, 1) 0px 10px 0px 5px';
   for(let i = 0; i < n; i++) {
-    shadows.style = 'box-shadow: rgba(192, 57, 43, 1) 0px 10px 0px 5px, rgba(192, 57, 43, 1) 0px 30px 0px 5px';
+    shadows.style.boxShadow = shadows.style.boxShadow +
+      `, rgba(192, 57, 43, 1) 0px ${30 + 20 * i}px 0px 5px`;
   }
 }
 
-drawSquares(NUMBER_OF_SQUARES / 2, 'green');
-drawShadows(NUMBER_OF_SQUARES / 2);
+drawSquares(NUMBER_OF_SQUARES, 'green');
+drawShadows(NUMBER_OF_SQUARES);
 
 const squares = document.querySelectorAll('.square');
 const times = {};
@@ -40,11 +42,11 @@ const moveRight = (square, index) => {
   square.style.transform = `translateX(${newTranslate}px)`;
 };
 
-console.time('prepareForRender');
+console.time('renderBlocks');
 squares.forEach((square, index) => {
   times[index] = 0;
   intervals[index] = window.setInterval(() => {
     moveRight(square, index);
   }, 0);
 })
-console.timeEnd('prepareForRender');
+console.timeEnd('renderBlocks');
