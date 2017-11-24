@@ -19,7 +19,7 @@ const drawShadows = (n) => {
   container.appendChild(e);
   const shadows = document.querySelector('.shadows');
   shadows.style.boxShadow = 'rgba(192, 57, 43, 1) 0px 10px 0px 5px';
-  for(let i = 0; i < n; i++) {
+  for(let i = 0; i < n-1; i++) {
     shadows.style.boxShadow = shadows.style.boxShadow +
       `, rgba(192, 57, 43, 1) 0px ${30 + 20 * i}px 0px 5px`;
   }
@@ -29,13 +29,13 @@ drawSquares(NUMBER_OF_SQUARES, 'green');
 drawShadows(NUMBER_OF_SQUARES);
 
 const squares = document.querySelectorAll('.square');
-const times = {};
-const intervals = {};
+const timesSquares = {};
+const intervalsSquares = {};
 
-const moveRight = (square, index) => {
-  times[index] = times[index] + 1;
-  if (times[index] === TIMES_MOVE) {
-    window.clearInterval(intervals[index]);
+const moveSquaresRight = (square, index) => {
+  timesSquares[index] = timesSquares[index] + 1;
+  if (timesSquares[index] === TIMES_MOVE) {
+    window.clearInterval(intervalsSquares[index]);
   }
   const translate = square.style.transform.match(/translateX\((.*)px\)/);
   const newTranslate = Number(translate && translate[1]) + MOVE_BY_PX;
@@ -44,9 +44,45 @@ const moveRight = (square, index) => {
 
 console.time('renderBlocks');
 squares.forEach((square, index) => {
-  times[index] = 0;
-  intervals[index] = window.setInterval(() => {
-    moveRight(square, index);
+  timesSquares[index] = 0;
+  intervalsSquares[index] = window.setInterval(() => {
+    moveSquaresRight(square, index);
   }, 0);
 })
 console.timeEnd('renderBlocks');
+
+const shadowsElement = document.querySelector('.shadows');
+const shadowsString = shadowsElement.style.boxShadow;
+const shadows = shadowsString.split('px, ');
+const timesShadows = {};
+const intervalsShadows = {};
+console.time('renderShadows');
+
+const moveShadowsRight = (shadow, index) => {
+  timesShadows[index] = timesShadows[index] + 1;
+  if (timesShadows[index] === TIMES_MOVE) {
+    window.clearInterval(intervalsShadows[index]);
+  }
+  xPosition = `${timesShadows[index]}px`;
+  yPosition = shadows[index].match(/(\d+)px/g)[1];
+  shadows[index] = `rgb(192, 57, 43) ${xPosition} ${yPosition} 0px 5px`;
+
+  let newShadowString = '';
+  shadows.forEach((shadow) => {
+    if (newShadowString === '') {
+      newShadowString = shadow;
+    } else {
+      newShadowString = `${newShadowString}, ${shadow}`;
+    }
+  })
+  shadowsElement.style.boxShadow = newShadowString;
+}
+
+shadows.forEach((shadow, index) => {
+  timesShadows[index] = 0;
+  intervalsShadows[index] = window.setInterval(() => {
+    moveShadowsRight(shadow, index);
+  }, 0);
+});
+
+console.timeEnd('renderShadows');
