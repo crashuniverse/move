@@ -10,7 +10,8 @@ engines in browsers.
 `npm i`
 
 ## run
-`npm start`
+`npm start`  
+http://localhost:9000/
 
 ## demo
 https://crashuniverse.github.io/move/

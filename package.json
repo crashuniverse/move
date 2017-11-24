@@ -1,0 +1,28 @@
+{
+  "name": "move",
+  "version": "1.0.0",
+  "description": "This project demonstrates layout engines in browsers",
+  "main": "app.js",
+  "scripts": {
+    "start": "http-server -p 9000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crashuniverse/move.git"
+  },
+  "keywords": [
+    "css",
+    "box-shadow",
+    "layout engine"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crashuniverse/move/issues"
+  },
+  "homepage": "https://github.com/crashuniverse/move#readme",
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  }
+}
